@@ -38,8 +38,12 @@ jQuery.entwine('ss', ($) => {
     perform(el, result, method = 'toggle') {
       if (result) {
         this[method].show(el);
+        const e = new Event('displaylogic:on');
+        el[0].dispatchEvent(e);
       } else {
         this[method].hide(el);
+        const e = new Event('displaylogic:off');
+        el[0].dispatchEvent(e);
       }
     }
   };
@@ -159,6 +163,30 @@ jQuery.entwine('ss', ($) => {
       return !this.getFormField().is(':checked');
     },
 
+    evaluateDateAgo(val) {
+      val = parseInt(val);
+      const date = new Date(this.getFieldValue());
+      const today = new Date();
+      let diff = (today.getTime() - date.getTime()) / (365 * 24 * 60 * 60 * 1000);
+      return diff >= val;
+    },
+
+    evaluateDateAfter(val) {
+      val = parseInt(val);
+      const date = new Date(this.getFieldValue());
+      const today = new Date();
+      let diff = (date.getTime() - today.getTime()) / (365 * 24 * 60 * 60 * 1000);
+      return diff <= val;
+    },
+
+    evaluateDateEqual(val) {
+      val = parseInt(val);
+      const date = new Date(this.getFieldValue());
+      const today = new Date();
+      let diff = (today.getTime() - date.getTime()) / (365 * 24 * 60 * 60 * 1000);
+      return diff = val;
+    },
+
     onmatch() {
       let allReadonly = true;
       let dispatchers = [];
@@ -262,6 +290,7 @@ jQuery.entwine('ss', ($) => {
 
 
   $('div.display-logic-dispatcher input[type="text"], ' +
+    'div.display-logic-dispatcher input[type="date"], ' +
     'div.display-logic-dispatcher input[type="email"], ' +
     'div.display-logic-dispatcher input[type="number"]').entwine({
     onmatch() {

@@ -32,9 +32,9 @@ class DisplayLogic extends Extension
     /**
      * If the criteria evaluate true, the field should display
      *
-     * @param string $dispatcher The name of the form field that is controlling the display
+     * @param string|null $dispatcher The name of the form field that is controlling the display
      */
-    public function displayIf(string $dispatcher): Criteria
+    public function displayIf($dispatcher = null): Criteria
     {
         $class ="display-logic display-logic-hidden display-logic-display";
         $this->owner->addExtraClass($class);
@@ -50,9 +50,9 @@ class DisplayLogic extends Extension
      * If the criteria evaluate true, the field should hide.
      * The field will be hidden with CSS on page load, before the script loads.
      *
-     * @param string $dispatcher The name of the form field that is controlling the display
+     * @param string|null $dispatcher The name of the form field that is controlling the display
      */
-    public function hideIf(string $dispatcher): Criteria
+    public function hideIf($dispatcher = null): Criteria
     {
         $class = "display-logic display-logic-hide";
         $this->owner->addExtraClass($class);
@@ -67,9 +67,9 @@ class DisplayLogic extends Extension
      * If the criteria evaluate true, the field should hide.
      * The field will be displayed before the script loads.
      *
-     * @param string $dispatcher The name of the form field that is controlling the display
+     * @param string|null $dispatcher The name of the form field that is controlling the display
      */
-    public function displayUnless(string $dispatcher): Criteria
+    public function displayUnless($dispatcher = null): Criteria
     {
         return $this->owner->hideIf($dispatcher);
     }
@@ -78,9 +78,9 @@ class DisplayLogic extends Extension
      * If the criteria evaluate true, the field should display.
      * The field will be hidden with CSS on page load, before the script loads.
      *
-     * @param string $dispatcher The name of the form field that is controlling the display
+     * @param string|null $dispatcher The name of the form field that is controlling the display
      */
-    public function hideUnless(string $dispatcher): Criteria
+    public function hideUnless($dispatcher = null): Criteria
     {
         return $this->owner->displayIf($dispatcher);
     }
