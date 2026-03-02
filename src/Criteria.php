@@ -33,7 +33,7 @@ class Criteria
     /**
      * The name of the form field that depends on the criteria
      */
-    protected string $dispatcher;
+    protected ?string $dispatcher = null;
 
     /**
      * The form field that responds to the state of {@link $dispatcher}
@@ -76,10 +76,10 @@ class Criteria
 
     /**
      * @param FormField $responder The form field that responds to changes of another form field
-     * @param string $dispatcher The name of the form field to respond to
+     * @param string|null $dispatcher The name of the form field to respond to
      * @param Criteria|null $parent The parent
      */
-    public function __construct(FormField $responder, string $dispatcher, ?Criteria $parent = null)
+    public function __construct(FormField $responder, ?string $dispatcher = null, ?Criteria $parent = null)
     {
         $this->responder = $responder;
         $this->dispatcher = $dispatcher;
